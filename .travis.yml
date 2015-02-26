@@ -1,0 +1,34 @@
+language: haskell
+
+env:
+  matrix:
+    - HPVER=2013.2.0.0
+    - HPVER=2014.2.0.0
+    - GHCVER=7.6.3
+    - GHCVER=7.8.4
+    - GHCVER=7.10.1
+  global:
+    - CABALVER=1.20
+
+matrix:
+  allow_failures:
+    - env: GHCVER=7.10.1
+
+before_install:
+  - git clone http://github.com/diagrams/diagrams-travis travis
+  - source travis/scripts/set_env.sh
+  - ./travis/scripts/before_install.sh
+
+install: ./travis/scripts/install.sh
+
+script: ./travis/scripts/script.sh
+
+
+notifications:
+  email: false
+  irc:
+    channels:
+      - irc.freenode.org#diagrams
+    skip_join: true
+    template:
+      - "\x0313diagrams-solve\x03/\x0306%{branch}\x03 \x0314%{commit}\x03 %{build_url} %{message}"
