@@ -15,6 +15,7 @@ category:            Math
 build-type:          Simple
 extra-source-files:  README.markdown, CHANGES.markdown
 cabal-version:       >=1.10
+Tested-with:         GHC == 7.4.2, GHC == 7.6.3, GHC == 7.8.4, GHC == 7.10.1
 Source-repository head
   type:     git
   location: http://github.com/diagrams/diagrams-solve.git
