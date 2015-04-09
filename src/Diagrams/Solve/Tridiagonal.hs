@@ -14,7 +14,7 @@ module Diagrams.Solve.Tridiagonal
        , solveCyclicTriDiagonal
        ) where
 
--- | 'solveTriDiagonal as bs cs ds' solves a system of the form 'A*X=ds'
+-- | @solveTriDiagonal as bs cs ds@ solves a system of the form @A*X = ds@
 --   where 'A' is an 'n' by 'n' matrix with 'bs' as the main diagonal
 --   and 'as' the diagonal below and 'cs' the diagonal above.  See:
 --   <http://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm>
@@ -54,7 +54,7 @@ sparseVector n s m e
     h n = m : h (n - 1)
 
 -- | Solves a system similar to the tri-diagonal system using a special case
---   of the Sherman-Morrison formula <http://en.wikipedia.org/wiki/Sherman-Morrison_formula>.
+--   of the Sherman-Morrison formula (<http://en.wikipedia.org/wiki/Sherman-Morrison_formula>).
 --   This code is based on /Numerical Recpies in C/'s @cyclic@ function in section 2.7.
 solveCyclicTriDiagonal :: Fractional a => [a] -> [a] -> [a] -> [a] -> a -> a -> [a]
 solveCyclicTriDiagonal as (b0:bs) cs ds alpha beta = zipWith ((+) . (fact *)) zs xs
