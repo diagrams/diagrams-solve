@@ -1,5 +1,5 @@
 name:                diagrams-solve
-version:             0.1
+version:             0.1.0.1
 synopsis:            Pure Haskell solver routines used by diagrams
 description:         Pure Haskell solver routines used by the diagrams
                      project.  Currently includes finding real roots
