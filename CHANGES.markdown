@@ -1,4 +1,4 @@
-* 0.1.0.1 (12 February 2016)
+* 0.1.0.1 (14 February 2016)
 
   allow base-4.9 for GHC-8.0
 
