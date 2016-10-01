@@ -70,10 +70,6 @@ quadForm a b c
  where d = b^2 - 4*a*c
        q = -1/2*(b + signum b * sqrt d)
 
-_quadForm_prop :: Double -> Double -> Double -> Bool
-_quadForm_prop a b c = all (aboutZero' 1e-10 . eval) (quadForm a b c)
-  where eval x = a*x^2 + b*x + c
-
 ------------------------------------------------------------
 -- Cubic formula
 ------------------------------------------------------------
@@ -120,19 +116,6 @@ cubForm' toler a b c d
 cubForm :: (Floating d, Ord d) => d -> d -> d -> d -> [d]
 cubForm = cubForm' 1e-10
 
-_cubForm_prop :: Double -> Double -> Double -> Double -> Bool
-_cubForm_prop a b c d = all (aboutZero' 1e-5 . eval) (cubForm a b c d)
-  where eval x = a*x^3 + b*x^2 + c*x + d
-           -- Basically, however large you set the tolerance it seems
-           -- that quickcheck can always come up with examples where
-           -- the returned solutions evaluate to something near zero
-           -- but larger than the tolerance (but it takes it more
-           -- tries the larger you set the tolerance). Wonder if this
-           -- is an inherent limitation or (more likely) a problem
-           -- with numerical stability.  If this turns out to be an
-           -- issue in practice we could, say, use the solutions
-           -- generated here as very good guesses to a numerical
-           -- solver which can give us a more precise answer?
 
 ------------------------------------------------------------
 -- Quartic formula
@@ -184,7 +167,3 @@ quartForm' toler c4 c3 c2 c1 c0
 quartForm :: (Floating d, Ord d) => d -> d -> d -> d -> d -> [d]
 quartForm = quartForm' 1e-10
 
-_quartForm_prop :: Double -> Double -> Double -> Double -> Double -> Bool
-_quartForm_prop a b c d e = all (aboutZero' 1e-5 . eval) (quartForm a b c d e)
-  where eval x = a*x^4 + b*x^3 + c*x^2 + d*x + e
-           -- Same note about tolerance as for cubic
