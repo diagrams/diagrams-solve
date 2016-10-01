@@ -1,21 +1,29 @@
 module Main where
 
-import Diagrams.Solve.Polynomial
+import           Diagrams.Solve.Polynomial
 
-import Test.Tasty (defaultMain, testGroup, TestTree)
+import           Test.Tasty                (TestTree, defaultMain, localOption,
+                                            testGroup)
 import           Test.Tasty.QuickCheck
 
 tests :: TestTree
-tests = testGroup "Solve" [
-         testProperty "solutions found satisfy quadratic equation" $
-         \a b c -> let sat x =  a * x * x + b * x + c =~ 0 in all sat (quadForm a b c)
--- could verify number of solutions, but we would just duplicate the function definition
-        , testProperty "solutions found satisfy cubic equation" $
-         \a b c d -> let sat x =  a * x * x * x + b * x * x + c * x + d =~ (0 :: Double) in all sat (cubForm a b c d)
-        ]
+tests
+  = localOption (QuickCheckTests 1000) $
+    testGroup "Solve"
+  [ testProperty "solutions found satisfy quadratic equation" $
+    \a b c -> all (\x -> evalPoly [c,b,a] x =~ 0) (quadForm a b c)
+
+  , testProperty "solutions found satisfy cubic equation" $
+    \a b c d -> all (\x -> evalPoly [d,c,b,a] x =~ 0) (cubForm a b c d)
+
+  , testProperty "solutions found satisfy quartic equation" $
+    \a b c d e ->
+      let sat x = a*x^4 + b*x^3 + c*x^2 + d*x + e =~ (0 :: Double)
+      in  all sat (quartForm a b c d e)
+  ]
 
 (=~) :: Double -> Double -> Bool
-(=~) a b = abs (a - b) < 0.001
+(=~) a b = abs (a - b) < 1e-5
 infix 4 =~
 
 main :: IO ()
