@@ -31,6 +31,8 @@ tau = 2*pi
 --   c.f. http://comments.gmane.org/gmane.comp.lang.haskell.libraries/21164
 --   for discussion. "The choice in (^) and (^^) to overload on the
 --   power's Integral type... was a genuinely bad idea." - Edward Kmett
+--
+--   Note there are rewrite rules in GHC.Real to expand small exponents.
 (^) :: (Num a) => a -> Integer -> a
 (^) = (P.^)
 
