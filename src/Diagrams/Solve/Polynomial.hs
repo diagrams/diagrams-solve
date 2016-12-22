@@ -37,6 +37,7 @@ tau = 2*pi
 -- | Utility function used to avoid singularities
 aboutZero' :: (Ord a, Num a) => a -> a -> Bool
 aboutZero' toler x = abs x < toler
+{-# INLINE aboutZero' #-}
 
 ------------------------------------------------------------
 -- Quadratic formula
@@ -69,6 +70,7 @@ quadForm a b c
   | otherwise = [q/a, c/q]
  where d = b^2 - 4*a*c
        q = -1/2*(b + signum b * sqrt d)
+{-# INLINE quadForm #-}
 
 _quadForm_prop :: Double -> Double -> Double -> Bool
 _quadForm_prop a b c = all (aboutZero' 1e-10 . eval) (quadForm a b c)
@@ -113,12 +115,14 @@ cubForm' toler a b c d
        trig k = 2 * sqrt(-p/3) * cos(phi - k*tau/3) - b/(3*a)
        cubert x | x < 0     = -((-x)**(1/3))
                 | otherwise = x**(1/3)
+{-# INLINE cubForm' #-}
 
 -- | Solve the cubic equation ax^3 + bx^2 + cx + d = 0, returning a
 --   list of all real roots within 1e-10 tolerance
 --   (although currently it's closer to 1e-5)
 cubForm :: (Floating d, Ord d) => d -> d -> d -> d -> [d]
 cubForm = cubForm' 1e-10
+{-# INLINE cubForm #-}
 
 _cubForm_prop :: Double -> Double -> Double -> Double -> Bool
 _cubForm_prop a b c d = all (aboutZero' 1e-5 . eval) (cubForm a b c d)
@@ -177,12 +181,14 @@ quartForm' toler c4 c3 c2 c1 c0
       v' = if aboutZero' toler v then 0 else sqrt v
       s1 = quadForm 1 (if q<0 then -v' else v') (z-u')
       s2 = quadForm 1 (if q<0 then v' else -v') (z+u')
+{-# INLINE quartForm' #-}
 
 -- | Solve the quartic equation c4 x^4 + c3 x^3 + c2 x^2 + c1 x + c0 = 0, returning a
 --   list of all real roots within 1e-10 tolerance
 --   (although currently it's closer to 1e-5)
 quartForm :: (Floating d, Ord d) => d -> d -> d -> d -> d -> [d]
 quartForm = quartForm' 1e-10
+{-# INLINE quartForm #-}
 
 _quartForm_prop :: Double -> Double -> Double -> Double -> Double -> Bool
 _quartForm_prop a b c d e = all (aboutZero' 1e-5 . eval) (quartForm a b c d e)
