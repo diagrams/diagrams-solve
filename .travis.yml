@@ -10,9 +10,8 @@ env:
     - GHCVER=8.2.2 CABALVER=2.0
     - GHCVER=8.4.3 CABALVER=2.2
     - GHCVER=8.6.1 CABALVER=2.4
+    - GHCVER=8.8.1 CABALVER=3.0
     - GHCVER=head CABALVER=head
-  global:
-    - CABALVER=1.20
 
 matrix:
   allow_failures:
