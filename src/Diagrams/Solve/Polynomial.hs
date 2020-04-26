@@ -169,7 +169,7 @@ quartForm' toler c4 c3 c2 c1 c0
       -- | roots of the reduced quartic
       roots | aboutZero' toler r =
                 0 : cubForm 1 0 p q   -- no constant term: y(y^3 + py + q) = 0
-            | u < 0 || v < 0 = []     -- no real solutions due to square root
+            | u < -toler || v < -toler = []     -- no real solutions due to square root
             | otherwise      = s1++s2 -- solutions of the quadratics
 
       -- solve the resolvent cubic - only one solution is needed
