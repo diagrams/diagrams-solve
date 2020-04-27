@@ -107,8 +107,7 @@ cubForm' toler a b c d
  where delta  = 18*a*b*c*d - 4*b^3*d + b^2*c^2 - 4*a*c^3 - 27*a^2*d^2
        disc   = 3*a*c - b^2
        qq     = sqrt(-27*(a^2)*delta)
-       qq'    | aboutZero' toler disc = maximumBy (comparing (abs . (+xx))) [qq, -qq]
-              | otherwise = qq
+       qq'    = if abs (xx + qq) > abs (xx - qq) then qq else -qq
        cc     = cubert (1/2*(qq' + xx))
        xx     = 2*b^3 - 9*a*b*c + 27*a^2*d
        p      = disc/(3*a^2)
