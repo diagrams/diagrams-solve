@@ -1,3 +1,9 @@
+* 0.1.2 (5 May 2020)
+
+  Improvements to stability/accuraty of `cubForm` and
+  `quartForm`, contributed by Jasper Van der Jeugt
+  ([#7](https://github.com/diagrams/diagrams-solve/pull/7), [#8](https://github.com/diagrams/diagrams-solve/pull/8))
+
 * 0.1.1 (3 July 2017)
 
   allow base-4.10 for GHC-8.2
