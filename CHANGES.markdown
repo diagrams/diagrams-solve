@@ -1,3 +1,8 @@
+* 0.1.3 (13 Feb 2021)
+
+  Test with up through GHC 9.0
+  Allow `tasty-1.4`
+
 * 0.1.2 (5 May 2020)
 
   Improvements to stability/accuraty of `cubForm` and
