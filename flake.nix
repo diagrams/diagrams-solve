@@ -6,7 +6,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }:
     with flake-utils.lib;
     with nixpkgs.lib;
-    eachSystem [ "x86_64-darwin" ] (system:
+    eachSystem [ "x86_64-linux" ] (system:
       let version = "${substring 0 8 self.lastModifiedDate}.${self.shortRev or "dirty"}";
           overlay = self: super:
             with self;
@@ -14,8 +14,8 @@
             with haskellPackages;
             {
               diagrams-solve = rec {
-                  package = overrideCabal (callCabal2nix "diagrams-solve" ./. {}) (o: { version = "${o.version}-${version}"; });
-                };
+                package = overrideCabal (callCabal2nix "diagrams-solve" ./. {}) (o: { version = "${o.version}-${version}"; });
+              };
             };
           overlays = [ overlay ];
       in
