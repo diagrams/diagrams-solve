@@ -6,7 +6,7 @@ description:         Pure Haskell solver routines used by the diagrams
                      of low-degree (n < 5) polynomials, and solving
                      tridiagonal and cyclic tridiagonal linear
                      systems.
-homepage:            http://projects.haskell.org/diagrams
+homepage:            https://diagrams.github.io
 license:             BSD3
 license-file:        LICENSE
 author:              various
