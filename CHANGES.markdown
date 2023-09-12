@@ -3,6 +3,9 @@
   Test with up through GHC 9.0
   Allow `tasty-1.4`
 
+  - r1: update homepage
+  - r2: allow `tasty-1.5` and `deepseq-1.5`; test on GHC 9.6
+
 * 0.1.2 (5 May 2020)
 
   Improvements to stability/accuraty of `cubForm` and
