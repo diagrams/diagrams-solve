@@ -5,6 +5,7 @@
 
   - r1: update homepage
   - r2: allow `tasty-1.5` and `deepseq-1.5`; test on GHC 9.6
+  - r3: allow `tasty-quickcheck-0.11`
 
 * 0.1.2 (5 May 2020)
 
