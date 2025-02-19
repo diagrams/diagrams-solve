@@ -1,3 +1,7 @@
+* 0.1.3.1 (19 Feb 2025)
+
+  Test with up through GHC 9.12
+
 * 0.1.3 (13 Feb 2021)
 
   Test with up through GHC 9.0
