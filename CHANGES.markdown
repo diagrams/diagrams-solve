@@ -1,3 +1,11 @@
+* 0.2 (25 Apr 2026)
+
+  - The types of `solveTriDiagonal` and `solveCyclicTridiagonal` have
+    changed to take arguments of type `NonEmpty a` instead of `[a]`.
+    Previously, they simply crashed when given empty lists as
+    arguments.
+  - Test with GHC 9.14
+
 * 0.1.3.1 (19 Feb 2025)
 
   Test with up through GHC 9.12
