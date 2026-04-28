@@ -1,5 +1,3 @@
-{-# LANGUAGE ImportQualifiedPost #-}
-
 -- |
 -- Module      :  Diagrams.Solve.Polynomial
 -- Copyright   :  (c) 2011-2015 diagrams-solve team (see LICENSE)
@@ -17,7 +15,7 @@ module Diagrams.Solve.Polynomial (
 
 import Data.Maybe (fromMaybe, listToMaybe)
 import Prelude hiding ((^))
-import Prelude qualified as P ((^))
+import qualified Prelude as P ((^))
 
 -- | The fundamental circle constant, /i.e./ ratio between a circle's
 --   circumference and radius.

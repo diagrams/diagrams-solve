@@ -1,4 +1,3 @@
-{-# LANGUAGE ImportQualifiedPost #-}
 {-# OPTIONS_GHC -fno-warn-name-shadowing #-}
 
 -- |
@@ -14,7 +13,7 @@ module Diagrams.Solve.Tridiagonal (
 ) where
 
 import Data.List.NonEmpty (NonEmpty (..), (<|))
-import Data.List.NonEmpty qualified as NE
+import qualified Data.List.NonEmpty as NE
 
 -- | @solveTriDiagonal as bs cs ds@ solves a system of the form @A*X = ds@
 --   where 'A' is an 'n' by 'n' matrix with 'bs' as the main diagonal
