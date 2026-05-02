@@ -1,5 +1,7 @@
-* 0.2 (25 Apr 2026)
+* 0.2 (2 May 2026)
 
+  - Fixes for various pattern-match warnings
+  - Remove some unnecessary dependencies (`deepseq`, `tasty-hunit`)
   - The types of `solveTriDiagonal` and `solveCyclicTridiagonal` have
     changed to take arguments of type `NonEmpty a` instead of `[a]`.
     Previously, they simply crashed when given empty lists as
