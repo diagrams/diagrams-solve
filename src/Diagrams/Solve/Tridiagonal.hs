@@ -19,22 +19,20 @@ import qualified Data.List.NonEmpty as NE
 --   where 'A' is an 'n' by 'n' matrix with 'bs' as the main diagonal
 --   and 'as' the diagonal below and 'cs' the diagonal above.  See:
 --   <http://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm>
-solveTriDiagonal :: Fractional a => [a] -> NonEmpty a -> NonEmpty a -> NonEmpty a -> NonEmpty a
+solveTriDiagonal :: Fractional a => NonEmpty a -> NonEmpty a -> NonEmpty a -> NonEmpty a -> NonEmpty a
 solveTriDiagonal as (b0 :| bs) (c0 :| cs) (d0 :| ds) = h cs' ds'
  where
   cs' = c0 / b0 : f cs' as bs cs
-  f _ [_] _ _ = []
-  f (c' : cs') (a : as) (b : bs) (c : cs) = c / (b - c' * a) : f cs' as bs cs
-  f _ _ _ _ = error "solveTriDiagonal.f: impossible!"
+  f _ (_ :| []) _ _ = []
+  f (c' : cs') (a :| (a' : as)) (b : bs) (c : cs) = c / (b - c' * a) : f cs' (a' :| as) bs cs
 
-  ds' = d0 / b0 : g ds' as bs cs' ds
+  ds' = d0 / b0 :| g (NE.toList ds') (NE.toList as) bs cs' ds
   g _ [] _ _ _ = []
   g (d' : ds') (a : as) (b : bs) (c' : cs') (d : ds) = (d - d' * a) / (b - c' * a) : g ds' as bs cs' ds
   g _ _ _ _ _ = error "solveTriDiagonal.g: impossible!"
 
-  h _ [d] = d :| []
-  h (c : cs) (d : ds) = let xs@(x :| _) = h cs ds in d - c * x <| xs
-  h _ _ = error "solveTriDiagonal.h: impossible!"
+  h _ (d :| []) = d :| []
+  h (c : cs) (d :| (d' : ds)) = let xs@(x :| _) = h cs (d' :| ds) in d - c * x <| xs
 
 -- Helper that applies the passed function only to the last element of a list
 modifyLast :: (a -> a) -> [a] -> [a]
@@ -54,7 +52,7 @@ sparseVector (_ :| ds) s m e = s :| h ds
 -- | Solves a system similar to the tri-diagonal system using a special case
 --   of the Sherman-Morrison formula (<http://en.wikipedia.org/wiki/Sherman-Morrison_formula>).
 --   This code is based on /Numerical Recpies in C/'s @cyclic@ function in section 2.7.
-solveCyclicTriDiagonal :: Fractional a => [a] -> NonEmpty a -> NonEmpty a -> NonEmpty a -> a -> a -> NonEmpty a
+solveCyclicTriDiagonal :: Fractional a => NonEmpty a -> NonEmpty a -> NonEmpty a -> NonEmpty a -> a -> a -> NonEmpty a
 solveCyclicTriDiagonal as (b0 :| bs) cs ds alpha beta = NE.zipWith ((+) . (fact *)) zs xs
  where
   gamma = -b0
