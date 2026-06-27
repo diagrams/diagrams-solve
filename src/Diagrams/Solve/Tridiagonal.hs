@@ -23,15 +23,22 @@ solveTriDiagonal :: Fractional a => NonEmpty a -> NonEmpty a -> NonEmpty a -> No
 solveTriDiagonal as (b0 :| bs) (c0 :| cs) (d0 :| ds) = h cs' ds'
  where
   cs' = c0 / b0 : f cs' as bs cs
+  f [] _ _ _ = []
   f _ (_ :| []) _ _ = []
+  f _ _ [] _ = []
+  f _ _ _ [] = []
   f (c' : cs') (a :| (a' : as)) (b : bs) (c : cs) = c / (b - c' * a) : f cs' (a' :| as) bs cs
 
   ds' = d0 / b0 :| g (NE.toList ds') (NE.toList as) bs cs' ds
+  g [] _ _ _ _ = []
   g _ [] _ _ _ = []
+  g _ _ [] _ _ = []
+  g _ _ _ [] _ = []
+  g _ _ _ _ [] = []
   g (d' : ds') (a : as) (b : bs) (c' : cs') (d : ds) = (d - d' * a) / (b - c' * a) : g ds' as bs cs' ds
-  g _ _ _ _ _ = error "solveTriDiagonal.g: impossible!"
 
   h _ (d :| []) = d :| []
+  h [] (d :| _) = d :| []
   h (c : cs) (d :| (d' : ds)) = let xs@(x :| _) = h cs (d' :| ds) in d - c * x <| xs
 
 -- Helper that applies the passed function only to the last element of a list
