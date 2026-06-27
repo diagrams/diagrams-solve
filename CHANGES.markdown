@@ -1,3 +1,8 @@
+* 0.3 (27 June 2026)
+
+  - Fix more pattern-match warnings, change additional list parameters
+    to `NonEmpty` in `solveTriDiagonal` and `solveCyclicTridiagonal`.
+
 * 0.2 (2 May 2026)
 
   - Fixes for various pattern-match warnings
